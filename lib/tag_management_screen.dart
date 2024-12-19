@@ -4,11 +4,13 @@ import 'package:expense_tracking_app/models/tag.dart';
 import 'package:expense_tracking_app/providers/expense_provider.dart';
 
 class TagManagementScreen extends StatelessWidget {
+  const TagManagementScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Manage Tags'),
+        title: const Text('Manage Tags'),
       ),
       body: Consumer<ExpenseProvider>(
         builder: (context, provider, child) {
@@ -19,7 +21,10 @@ class TagManagementScreen extends StatelessWidget {
               return ListTile(
                 title: Text(tag.name),
                 trailing: IconButton(
-                  icon: Icon(Icons.delete),
+                  icon: const Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
                   onPressed: () {
                     provider.removeTag(tag.id);
                   },
@@ -33,8 +38,8 @@ class TagManagementScreen extends StatelessWidget {
         onPressed: () {
           _showAddTagDialog(context);
         },
-        child: Icon(Icons.add),
         tooltip: 'Add Tag',
+        child: const Icon(Icons.add),
       ),
     );
   }
