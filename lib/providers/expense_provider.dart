@@ -71,6 +71,10 @@ class ExpenseProvider with ChangeNotifier {
         'categories', _categories.map((e) => e.toJson()).toList().toString());
   }
 
+  Category? getCategoryById(String id) {
+    return _categories.firstWhere((category) => category.id == id);
+  }
+
   void addCategory(Category category) {
     _categories.add(category);
     _saveCategoriesToStorage();

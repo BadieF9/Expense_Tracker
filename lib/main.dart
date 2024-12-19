@@ -30,6 +30,13 @@ class MyApp extends StatelessWidget {
               centerTitle: true,
               backgroundColor: Colors.deepPurple,
               foregroundColor: Colors.white),
+          tabBarTheme: const TabBarTheme(
+            labelColor: Colors.white,
+            unselectedLabelColor: Colors.grey,
+            indicator: UnderlineTabIndicator(
+              borderSide: BorderSide(width: 2.0, color: Colors.white),
+            ),
+          ),
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.deepPurple,
@@ -40,7 +47,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home: HomeScreen(), // Assuming HomeScreen leads to EditStudentScreen
+        home: const HomeScreen(), // Assuming HomeScreen leads to EditStudentScreen
       ),
     );
   }
