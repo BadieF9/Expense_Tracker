@@ -3,6 +3,7 @@ import 'package:expense_tracking_app/category_management_screen.dart';
 import 'package:expense_tracking_app/models/expense.dart';
 import 'package:expense_tracking_app/tag_management_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../providers/expense_provider.dart';
 
@@ -36,6 +37,8 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -76,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen>
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CategoryManagementScreen(),
+                    builder: (context) => const CategoryManagementScreen(),
                   ),
                 );
               },
@@ -89,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen>
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => TagManagementScreen(),
+                    builder: (context) => const TagManagementScreen(),
                   ),
                 );
               },
@@ -114,9 +117,12 @@ class _HomeScreenState extends State<HomeScreen>
               itemBuilder: (context, index) {
                 final expense = expenseByDate[index];
                 return ListTile(
-                  title: Text('${expense.payee} - \$${expense.amount}'),
+                  title: Text(
+                    '${expense.payee} - \$${expense.amount}',
+                    style: TextStyle(color: theme.colorScheme.primary),
+                  ),
                   subtitle: Text(
-                      'Category: ${provider.getCategoryById(expense.categoryId)?.name} - Date: ${expense.date.toIso8601String()}'),
+                      'Category: ${provider.getCategoryById(expense.categoryId)?.name} - Date: ${DateFormat('MMM dd, yyyy').format(expense.date)}'),
                   onTap: () {
                     Navigator.push(
                       context,
@@ -134,9 +140,50 @@ class _HomeScreenState extends State<HomeScreen>
               itemBuilder: (context, index) {
                 final expense = expensesByCategory[index];
                 return ListTile(
-                  title: Text('${expense.payee} - \$${expense.amount}'),
-                  subtitle: Text(
-                      'Category: ${provider.getCategoryById(expense.categoryId)?.name} - Date: ${expense.date.toIso8601String()}'),
+                  title: Text(
+                    '${provider.getCategoryById(expense.categoryId)?.name} - Total: \$${expense.amount.toStringAsFixed(2)}',
+                    style: TextStyle(
+                        color: theme.colorScheme.primary,
+                        fontSize: 22.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  subtitle: Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 20, 0, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(
+                            Icons.paid,
+                            color: theme.colorScheme.primary,
+                            size: 30,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 12),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  '${expense.payee} - \$${expense.amount.toStringAsFixed(2)}',
+                                  style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  DateFormat('MMM dd, yyyy')
+                                      .format(expense.date),
+                                  style: TextStyle(
+                                      color: theme.colorScheme.secondary,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      )),
                   onTap: () {
                     Navigator.push(
                       context,
