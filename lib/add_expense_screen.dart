@@ -8,7 +8,7 @@ import 'package:intl/intl.dart'; // Make sure to import intl package
 class AddExpenseScreen extends StatefulWidget {
   final Expense? expense;
 
-  const AddExpenseScreen({Key? key, this.expense}) : super(key: key);
+  const AddExpenseScreen({super.key, this.expense});
 
   @override
   _AddExpenseScreenState createState() => _AddExpenseScreenState();
@@ -112,6 +112,7 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                 const SizedBox(height: 20),
                 ContainedDropdown(
                   hintText: 'Category',
+                  initialValue: _selectedCategoryId,
                   items: Provider.of<ExpenseProvider>(context, listen: false)
                       .categories
                       .map((e) =>
@@ -121,12 +122,12 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     setState(() {
                       _selectedCategoryId = newValue;
                     });
-                    print('Selected Value 2: $newValue');
                   },
                 ),
                 const SizedBox(height: 20),
                 ContainedDropdown(
                   hintText: 'Tag',
+                  initialValue: _selectedTagId,
                   items: Provider.of<ExpenseProvider>(context, listen: false)
                       .tags
                       .map((e) =>
@@ -136,7 +137,6 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                     setState(() {
                       _selectedTagId = newValue;
                     });
-                    print('Selected Value 2: $newValue');
                   },
                 ),
                 const SizedBox(height: 20),
