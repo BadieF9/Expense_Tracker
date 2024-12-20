@@ -13,9 +13,31 @@ class ExpenseProvider with ChangeNotifier {
   List<Tag> _tags = [];
   List<Tag> get tags => _tags;
   ExpenseProvider({required this.storage}) {
-    _loadExpensesFromStorage();
-    _loadCategoriesFromStorage();
     _loadTagsFromStorage();
+    Tag newTag = Tag(
+        id: DateTime.now().millisecondsSinceEpoch.toString(), name: 'Badie');
+    addTag(newTag);
+    _loadCategoriesFromStorage();
+    Category newCategory = Category(
+        id: DateTime.now().millisecondsSinceEpoch.toString(), name: 'Food');
+    addCategory(newCategory);
+    _loadExpensesFromStorage();
+    addExpense(Expense(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        amount: 12,
+        categoryId: newCategory.id,
+        payee: 'Farbod',
+        note: "Some note",
+        date: DateTime(2023, 2, 2),
+        tag: newTag.id));
+    addExpense(Expense(
+        id: DateTime.now().millisecondsSinceEpoch.toString(),
+        amount: 12,
+        categoryId: newCategory.id,
+        payee: 'Farbod',
+        note: "Some note",
+        date: DateTime(2023, 2, 2),
+        tag: newTag.id));
   }
 
   void _loadExpensesFromStorage() async {
