@@ -1,5 +1,6 @@
 import 'package:expense_tracking_app/add_expense_screen.dart';
 import 'package:expense_tracking_app/category_management_screen.dart';
+import 'package:expense_tracking_app/components/dismissable_list_item.dart';
 import 'package:expense_tracking_app/models/expense.dart';
 import 'package:expense_tracking_app/tag_management_screen.dart';
 import 'package:flutter/material.dart';
@@ -116,103 +117,113 @@ class _HomeScreenState extends State<HomeScreen>
               itemCount: expenseByDate.length,
               itemBuilder: (context, index) {
                 final expense = expenseByDate[index];
-                return Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Card(
-                      color: theme.colorScheme.primaryContainer,
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Padding(
-                          padding: const EdgeInsets.fromLTRB(4, 2, 4, 2),
-                          child: ListTile(
-                            title: Text(
-                              '${expense.payee} - \$${expense.amount.toStringAsFixed(2)}',
-                              style: const TextStyle(fontSize: 20),
-                            ),
-                            subtitle: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const SizedBox(height: 2),
-                                Text(
-                                    '${DateFormat('MMM dd, yyyy').format(expense.date)} - Category: ${provider.getCategoryById(expense.categoryId)?.name}',
-                                    style: const TextStyle(fontSize: 18)),
-                              ],
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      AddExpenseScreen(expense: expense),
+                return DismissibleListItem(
+                    itemKey: Key(expense.id),
+                    onDismissed: (direction) {
+                      provider.removeExpense(expense.id);
+                    },
+                    child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Card(
+                          color: theme.colorScheme.primaryContainer,
+                          elevation: 2,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Padding(
+                              padding: const EdgeInsets.fromLTRB(4, 2, 4, 2),
+                              child: ListTile(
+                                title: Text(
+                                  '${expense.payee} - \$${expense.amount.toStringAsFixed(2)}',
+                                  style: const TextStyle(fontSize: 20),
                                 ),
-                              );
-                            },
-                          )),
-                    ));
+                                subtitle: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const SizedBox(height: 2),
+                                    Text(
+                                        '${DateFormat('MMM dd, yyyy').format(expense.date)} - Category: ${provider.getCategoryById(expense.categoryId)?.name}',
+                                        style: const TextStyle(fontSize: 18)),
+                                  ],
+                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          AddExpenseScreen(expense: expense),
+                                    ),
+                                  );
+                                },
+                              )),
+                        )));
               },
             ),
             ListView.builder(
               itemCount: expensesByCategory.length,
               itemBuilder: (context, index) {
                 final expense = expensesByCategory[index];
-                return ListTile(
-                  title: Text(
-                    '${provider.getCategoryById(expense.categoryId)?.name} - Total: \$${expense.amount.toStringAsFixed(2)}',
-                    style: TextStyle(
-                        color: theme.colorScheme.primary,
-                        fontSize: 22.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  subtitle: Padding(
-                      padding: const EdgeInsets.fromLTRB(8, 20, 0, 0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.paid,
+                return DismissibleListItem(
+                    itemKey: Key(expense.id),
+                    onDismissed: (direction) {
+                      provider.removeExpense(expense.id);
+                    },
+                    child: ListTile(
+                      title: Text(
+                        '${provider.getCategoryById(expense.categoryId)?.name} - Total: \$${expense.amount.toStringAsFixed(2)}',
+                        style: TextStyle(
                             color: theme.colorScheme.primary,
-                            size: 30,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 12),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${expense.payee} - \$${expense.amount.toStringAsFixed(2)}',
-                                  style: const TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                const SizedBox(height: 3),
-                                Text(
-                                  DateFormat('MMM dd, yyyy')
-                                      .format(expense.date),
-                                  style: TextStyle(
-                                      color: theme.colorScheme.secondary,
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      )),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            AddExpenseScreen(expense: expense),
+                            fontSize: 22.0,
+                            fontWeight: FontWeight.bold),
                       ),
-                    );
-                  },
-                );
+                      subtitle: Padding(
+                          padding: const EdgeInsets.fromLTRB(8, 20, 0, 0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Icon(
+                                Icons.paid,
+                                color: theme.colorScheme.primary,
+                                size: 30,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 12),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${expense.payee} - \$${expense.amount.toStringAsFixed(2)}',
+                                      style: const TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                    const SizedBox(height: 3),
+                                    Text(
+                                      DateFormat('MMM dd, yyyy')
+                                          .format(expense.date),
+                                      style: TextStyle(
+                                          color: theme.colorScheme.secondary,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          )),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                AddExpenseScreen(expense: expense),
+                          ),
+                        );
+                      },
+                    ));
               },
             )
           ]);
