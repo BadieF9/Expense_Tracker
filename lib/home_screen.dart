@@ -116,23 +116,42 @@ class _HomeScreenState extends State<HomeScreen>
               itemCount: expenseByDate.length,
               itemBuilder: (context, index) {
                 final expense = expenseByDate[index];
-                return ListTile(
-                  title: Text(
-                    '${expense.payee} - \$${expense.amount}',
-                    style: TextStyle(color: theme.colorScheme.primary),
-                  ),
-                  subtitle: Text(
-                      'Category: ${provider.getCategoryById(expense.categoryId)?.name} - Date: ${DateFormat('MMM dd, yyyy').format(expense.date)}'),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            AddExpenseScreen(expense: expense),
+                return Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Card(
+                      color: theme.colorScheme.primaryContainer,
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15),
                       ),
-                    );
-                  },
-                );
+                      child: Padding(
+                          padding: const EdgeInsets.fromLTRB(4, 2, 4, 2),
+                          child: ListTile(
+                            title: Text(
+                              '${expense.payee} - \$${expense.amount.toStringAsFixed(2)}',
+                              style: const TextStyle(fontSize: 20),
+                            ),
+                            subtitle: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const SizedBox(height: 2),
+                                Text(
+                                    '${DateFormat('MMM dd, yyyy').format(expense.date)} - Category: ${provider.getCategoryById(expense.categoryId)?.name}',
+                                    style: const TextStyle(fontSize: 18)),
+                              ],
+                            ),
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      AddExpenseScreen(expense: expense),
+                                ),
+                              );
+                            },
+                          )),
+                    ));
               },
             ),
             ListView.builder(
@@ -170,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen>
                                       fontSize: 18,
                                       fontWeight: FontWeight.w500),
                                 ),
-                                const SizedBox(height: 2),
+                                const SizedBox(height: 3),
                                 Text(
                                   DateFormat('MMM dd, yyyy')
                                       .format(expense.date),
