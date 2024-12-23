@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:expense_tracking_app/models/category.dart';
 import 'package:expense_tracking_app/models/tag.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,8 @@ class ExpenseProvider with ChangeNotifier {
     var storedExpenses = storage.getItem('expenses');
     if (storedExpenses != null) {
       _expenses = List<Expense>.from(
-        (storedExpenses as List).map((item) => Expense.fromJson(item)),
+        (jsonDecode(storedExpenses) as List)
+            .map((item) => Expense.fromJson(item)),
       );
       notifyListeners();
     }
@@ -30,7 +32,7 @@ class ExpenseProvider with ChangeNotifier {
 
   void _saveExpensesToStorage() {
     storage.setItem(
-        'expenses', _expenses.map((e) => e.toJson()).toList().toString());
+        'expenses', jsonEncode(_expenses.map((e) => e.toJson()).toList()));
   }
 
   void addExpense(Expense expense) {
@@ -60,7 +62,8 @@ class ExpenseProvider with ChangeNotifier {
     var storedCategories = storage.getItem('categories');
     if (storedCategories != null) {
       _categories = List<Category>.from(
-        (storedCategories as List).map((item) => Category.fromJson(item)),
+        (jsonDecode(storedCategories) as List)
+            .map((item) => Category.fromJson(item)),
       );
       notifyListeners();
     }
@@ -68,7 +71,7 @@ class ExpenseProvider with ChangeNotifier {
 
   void _saveCategoriesToStorage() {
     storage.setItem(
-        'categories', _categories.map((e) => e.toJson()).toList().toString());
+        'categories', jsonEncode(_categories.map((e) => e.toJson()).toList()));
   }
 
   Category? getCategoryById(String id) {
@@ -102,14 +105,14 @@ class ExpenseProvider with ChangeNotifier {
     var storedTags = storage.getItem('tags');
     if (storedTags != null) {
       _tags = List<Tag>.from(
-        (storedTags as List).map((item) => Tag.fromJson(item)),
+        (jsonDecode(storedTags) as List).map((item) => Tag.fromJson(item)),
       );
       notifyListeners();
     }
   }
 
   void _saveTagsToStorage() {
-    storage.setItem('tags', _tags.map((e) => e.toJson()).toList().toString());
+    storage.setItem('tags', jsonEncode(_tags.map((e) => e.toJson()).toList()));
   }
 
   void addTag(Tag tag) {
