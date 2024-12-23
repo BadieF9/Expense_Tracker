@@ -46,8 +46,7 @@ class MyApp extends StatelessWidget {
           ),
           useMaterial3: true,
         ),
-        home:
-            const HomeScreen(), // Assuming HomeScreen leads to EditStudentScreen
+        home: const HomeScreen(),
       ),
     );
   }
