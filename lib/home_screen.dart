@@ -1,6 +1,6 @@
 import 'package:expense_tracking_app/add_expense_screen.dart';
 import 'package:expense_tracking_app/category_management_screen.dart';
-import 'package:expense_tracking_app/components/dismissable_list_item.dart';
+import 'package:expense_tracking_app/widgets/dismissable_list_item.dart';
 import 'package:expense_tracking_app/models/expense.dart';
 import 'package:expense_tracking_app/tag_management_screen.dart';
 import 'package:flutter/material.dart';

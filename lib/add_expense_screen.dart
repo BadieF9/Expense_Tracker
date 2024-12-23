@@ -1,4 +1,4 @@
-import 'package:expense_tracking_app/components/contained_dropdown.dart';
+// import 'package:expense_tracking_app/widgets/contained_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/models/expense.dart';
@@ -110,34 +110,38 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                ContainedDropdown(
-                  hintText: 'Category',
-                  initialValue: _selectedCategoryId,
-                  items: Provider.of<ExpenseProvider>(context, listen: false)
-                      .categories
-                      .map((e) =>
-                          DropdownMenuItem(value: e.id, child: Text(e.name)))
-                      .toList(),
+                DropdownButtonFormField<String>(
                   onChanged: (newValue) {
                     setState(() {
                       _selectedCategoryId = newValue;
                     });
                   },
-                ),
-                const SizedBox(height: 20),
-                ContainedDropdown(
-                  hintText: 'Tag',
-                  initialValue: _selectedTagId,
+                  decoration: const InputDecoration(
+                      labelText: "Category", border: OutlineInputBorder()),
+                  icon: const SizedBox.shrink(),
                   items: Provider.of<ExpenseProvider>(context, listen: false)
-                      .tags
+                      .categories
                       .map((e) =>
                           DropdownMenuItem(value: e.id, child: Text(e.name)))
                       .toList(),
+                  value: _selectedCategoryId,
+                ),
+                const SizedBox(height: 20),
+                DropdownButtonFormField<String>(
                   onChanged: (newValue) {
                     setState(() {
                       _selectedTagId = newValue;
                     });
                   },
+                  decoration: const InputDecoration(
+                      labelText: "Tag", border: OutlineInputBorder()),
+                  icon: const SizedBox.shrink(),
+                  items: Provider.of<ExpenseProvider>(context, listen: false)
+                      .tags
+                      .map((e) =>
+                          DropdownMenuItem(value: e.id, child: Text(e.name)))
+                      .toList(),
+                  value: _selectedTagId,
                 ),
                 const SizedBox(height: 20),
               ],
