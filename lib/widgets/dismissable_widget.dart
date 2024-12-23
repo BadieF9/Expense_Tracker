@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:expense_tracking_app/dialogs/delete_confirmation_dialog.dart';
 
-// Generic Dismissible List Item Component
-class DismissibleListItem extends StatelessWidget {
+class DismissibleWidget extends StatelessWidget {
   final Key itemKey;
   final Widget child;
   final Future<bool?> Function(DismissDirection)? confirmDismiss;
@@ -9,7 +9,7 @@ class DismissibleListItem extends StatelessWidget {
   final Widget? background;
   final Widget? secondaryBackground;
 
-  const DismissibleListItem({
+  const DismissibleWidget({
     super.key,
     required this.itemKey,
     required this.child,
@@ -30,21 +30,11 @@ class DismissibleListItem extends StatelessWidget {
               return await showDialog(
                 context: context,
                 builder: (BuildContext context) {
-                  return AlertDialog(
-                    title: const Text("Confirm Delete"),
-                    content: const Text(
-                        "Are you sure you want to delete this expense?"),
-                    actions: <Widget>[
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(true),
-                        child: const Text("DELETE"),
-                      ),
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(false),
-                        child: const Text("CANCEL"),
-                      ),
-                    ],
-                  );
+                  return DeleteConfirmationDialog(
+                      title: 'Confirm Delete',
+                      content: 'Are you sure you want to delete this item?',
+                      onConfirm: () => Navigator.of(context).pop(true),
+                      onCancel: () => Navigator.of(context).pop(false));
                 },
               );
             }

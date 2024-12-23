@@ -1,6 +1,6 @@
 import 'package:expense_tracking_app/add_expense_screen.dart';
 import 'package:expense_tracking_app/category_management_screen.dart';
-import 'package:expense_tracking_app/widgets/dismissable_list_item.dart';
+import 'package:expense_tracking_app/widgets/dismissable_widget.dart';
 import 'package:expense_tracking_app/models/expense.dart';
 import 'package:expense_tracking_app/tag_management_screen.dart';
 import 'package:flutter/material.dart';
@@ -130,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen>
                     itemCount: expenseByDate.length,
                     itemBuilder: (context, index) {
                       final expense = expenseByDate[index];
-                      return DismissibleListItem(
+                      return DismissibleWidget(
                           itemKey: Key(expense.id),
                           onDismissed: (direction) {
                             provider.removeExpense(expense.id);
@@ -184,7 +184,7 @@ class _HomeScreenState extends State<HomeScreen>
                     itemCount: expensesByCategory.length,
                     itemBuilder: (context, index) {
                       final expense = expensesByCategory[index];
-                      return DismissibleListItem(
+                      return DismissibleWidget(
                           itemKey: Key(expense.id),
                           onDismissed: (direction) {
                             provider.removeExpense(expense.id);
