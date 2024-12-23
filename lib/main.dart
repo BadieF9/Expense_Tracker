@@ -1,4 +1,4 @@
-import 'package:expense_tracking_app/home_screen.dart';
+import 'package:expense_tracking_app/screens/home_screen.dart';
 import 'package:expense_tracking_app/providers/expense_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:localstorage/localstorage.dart';

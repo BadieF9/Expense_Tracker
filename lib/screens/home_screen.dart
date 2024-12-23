@@ -1,12 +1,12 @@
-import 'package:expense_tracking_app/add_expense_screen.dart';
-import 'package:expense_tracking_app/category_management_screen.dart';
+import 'package:expense_tracking_app/screens/add_expense_screen.dart';
+import 'package:expense_tracking_app/screens/category_management_screen.dart';
 import 'package:expense_tracking_app/widgets/dismissable_widget.dart';
 import 'package:expense_tracking_app/models/expense.dart';
-import 'package:expense_tracking_app/tag_management_screen.dart';
+import 'package:expense_tracking_app/screens/tag_management_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import '../providers/expense_provider.dart';
+import '../../providers/expense_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
