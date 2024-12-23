@@ -63,12 +63,10 @@ class _HomeScreenState extends State<HomeScreen>
         ),
       ),
       drawer: Drawer(
-        // This is the sidebar
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             const DrawerHeader(
-              // Header of the sidebar
               decoration: BoxDecoration(
                 color: Colors.deepPurple,
               ),
@@ -81,7 +79,6 @@ class _HomeScreenState extends State<HomeScreen>
               ),
             ),
             ListTile(
-              // Item in the sidebar
               leading: const Icon(
                 Icons.category,
                 color: Colors.deepPurple,
@@ -97,7 +94,6 @@ class _HomeScreenState extends State<HomeScreen>
               },
             ),
             ListTile(
-              // Item in the sidebar
               leading: const Icon(Icons.tag, color: Colors.deepPurple),
               title: const Text('Manage Tags'),
               onTap: () {

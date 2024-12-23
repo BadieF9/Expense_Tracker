@@ -1,9 +1,8 @@
-// import 'package:expense_tracking_app/widgets/contained_dropdown.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '/models/expense.dart';
 import '/providers/expense_provider.dart';
-import 'package:intl/intl.dart'; // Make sure to import intl package
+import 'package:intl/intl.dart';
 
 class AddExpenseScreen extends StatefulWidget {
   final Expense? expense;
@@ -41,10 +40,10 @@ class _AddExpenseScreenState extends State<AddExpenseScreen> {
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      initialDate: _selectedDate ?? DateTime.now(), // Start with current date
-      firstDate: DateTime(1900), // Earliest allowed date
-      lastDate: DateTime(2100), // Latest allowed date
-      helpText: 'Select expense date', // Customize the help text
+      initialDate: _selectedDate ?? DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2100),
+      helpText: 'Select expense date',
       cancelText: 'Not now',
       confirmText: 'Select',
     );

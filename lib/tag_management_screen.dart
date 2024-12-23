@@ -45,34 +45,34 @@ class TagManagementScreen extends StatelessWidget {
   }
 
   void _showAddTagDialog(BuildContext context) {
-    final TextEditingController _tagNameController = TextEditingController();
+    final TextEditingController tagNameController = TextEditingController();
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('Add Tag'),
+          title: const Text('Add Tag'),
           content: TextField(
-            controller: _tagNameController,
-            decoration: InputDecoration(labelText: 'Tag Name'),
+            controller: tagNameController,
+            decoration: const InputDecoration(labelText: 'Tag Name'),
           ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('Cancel'),
+              child: const Text('Cancel'),
             ),
             TextButton(
               onPressed: () {
                 final tag = Tag(
                   id: DateTime.now().millisecondsSinceEpoch.toString(),
-                  name: _tagNameController.text,
+                  name: tagNameController.text,
                 );
                 Provider.of<ExpenseProvider>(context, listen: false)
                     .addTag(tag);
                 Navigator.pop(context);
               },
-              child: Text('Add'),
+              child: const Text('Add'),
             ),
           ],
         );

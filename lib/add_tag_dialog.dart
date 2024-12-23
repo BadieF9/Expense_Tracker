@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AddTagDialog extends StatefulWidget {
+  const AddTagDialog({super.key});
+
   @override
   _AddTagDialogState createState() => _AddTagDialogState();
 }
@@ -11,27 +13,26 @@ class _AddTagDialogState extends State<AddTagDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Add Tag'),
+      title: const Text('Add Tag'),
       content: TextField(
         controller: _nameController,
-        decoration: InputDecoration(labelText: 'Tag Name'),
+        decoration: const InputDecoration(labelText: 'Tag Name'),
       ),
       actions: <Widget>[
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Cancel'),
+          child: const Text('Cancel'),
         ),
         ElevatedButton(
           onPressed: () {
             final tagName = _nameController.text;
             if (tagName.isNotEmpty) {
-              // Add tag logic here
               Navigator.of(context).pop(tagName);
             }
           },
-          child: Text('Add'),
+          child: const Text('Add'),
         ),
       ],
     );
